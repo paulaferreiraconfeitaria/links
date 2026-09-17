@@ -6,9 +6,14 @@
 <title>Paula Ferreira Confeitaria · Links</title>
 <meta name="description" content="Delivery, embalagens que eu uso, e-book da Coxinha Perfeita e mais.">
 
-<!-- EDITÁVEL · ÍCONE DA PÁGINA — troque o arquivo icone.png (quadrado) -->
-<link rel="icon" href="assets/icone.png">
-<link rel="apple-touch-icon" href="icone.png">
+<!-- EDITÁVEL · ÍCONE DA PÁGINA — dois arquivos quadrados:
+     assets/icone.png       → navegador no modo CLARO
+     assets/icone-white.png → navegador no modo ESCURO
+     (o script no fim da página mantém os dois em dia nos navegadores
+      que ignoram o atributo media, como o Safari) -->
+<link rel="icon" href="assets/icone.png" media="(prefers-color-scheme: light)">
+<link rel="icon" href="assets/icone-white.png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="assets/icone.png">
 <meta name="theme-color" content="#4A1420">
 
 <!-- EDITÁVEL · OPEN GRAPH — troque TROCAR-PELA-URL-FINAL pela URL publicada -->
@@ -16,7 +21,7 @@
 <meta property="og:title" content="Paula Ferreira Confeitaria · Links">
 <meta property="og:description" content="Delivery, embalagens que eu uso, e-book da Coxinha Perfeita e mais.">
 <meta property="og:url" content="https://TROCAR-PELA-URL-FINAL">
-<meta property="og:image" content="https://TROCAR-PELA-URL-FINAL/icone.png">
+<meta property="og:image" content="https://TROCAR-PELA-URL-FINAL/assets/icone.png">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,11 +54,12 @@
   --serif:"Playfair Display", Georgia, "Times New Roman", serif;
   --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 
-  /* --- foto: valores medidos no canal alfa do paula.png (1066x1600) --- */
-  --photo-w:300px;                          /* 340px em 768px+, 500px em 1200px+ */
-  --photo-col:calc(var(--photo-w) * 0.74);  /* coluna reservada — MENOR de propósito:
-                                               23% da direita da imagem é transparente */
-  --photo-x:0px;
+  /* --- foto: medidas do canal alfa do paula.png (1066x1358).
+         O corpo visível vai de 21,8% a 77,3% da largura — ou seja, há faixa
+         transparente dos DOIS lados e o corpo ocupa 55,5% da imagem. --- */
+  --photo-w:300px;                           /* 340px em 768px+, 500px em 1200px+ */
+  --photo-col:calc(var(--photo-w) * 0.555);  /* coluna reservada = só o corpo visível */
+  --photo-x:0px;                             /* ajuste fino extra, se precisar */
   --photo-y:0px;
 
   /* --- enquadramento do avatar redondo do mobile --- */
@@ -108,6 +114,9 @@ body{
 }
 .hero-head,.hero-photo{position:relative;z-index:1}
 
+/* o cabeçalho é um bloco à parte, centralizado na largura da tela */
+.hero-head{text-align:center}
+
 .hero-name{
   margin:0;
   font-family:var(--serif);
@@ -136,13 +145,14 @@ body{
 .hero-rule{
   width:44px;
   height:1px;
-  margin:18px 0;
+  margin:18px auto;
   border:0;
   background:rgba(217,122,52,.60);
 }
 
 .hero-tagline{
-  margin:0;
+  margin:0 auto;
+  max-width:30ch;          /* 46ch a partir de 768px */
   font-family:var(--serif);
   font-weight:500;
   line-height:1.35;
@@ -268,6 +278,14 @@ body{
    MOBILE (até 767px) — coluna única, foto vira avatar redondo
    ============================================================ */
 @media (max-width:767px){
+  /* o cabeçalho agora é irmão da foto, não filho dela: aqui a ordem visual
+     volta a ser avatar → nome/@/frase → cards */
+  .wrap{display:flex;flex-direction:column}
+  .layout{display:contents}
+  .hero{order:1}
+  .hero-head{order:2}
+  .links{order:3}
+
   .hero{text-align:center}
 
   .hero-photo{
@@ -291,7 +309,10 @@ body{
     top:var(--avatar-y);
   }
 
-  .hero-rule{margin-left:auto;margin-right:auto}
+  /* tudo centralizado no mobile... */
+  .links{text-align:center}
+  /* ...menos o texto dos cards, que continua alinhado à esquerda */
+  .card-body{text-align:left}
 
   /* rede de segurança: descrição muito longa não estica o card sem limite */
   .card-desc{
@@ -306,14 +327,19 @@ body{
    TABLET / DESKTOP (768px+) — duas colunas
    ============================================================ */
 @media (min-width:768px){
-  :root{--pad-x:32px;--photo-w:340px}
+  :root{--pad-x:32px;--photo-w:340px;--links-w:440px}
 
   .layout{
     display:grid;
-    grid-template-columns:var(--photo-col) minmax(0,1fr);
+    grid-template-columns:var(--photo-col) minmax(0,var(--links-w));
+    justify-content:center;  /* foto + cards centralizados como um bloco só */
     gap:44px;
     align-items:end;
   }
+
+  /* cabeçalho: faixa própria, centralizada na tela inteira, acima das duas colunas */
+  .hero-head{margin:0 auto 34px;text-align:center}
+  .hero-tagline{max-width:46ch}
 
   .hero{
     display:flex;
@@ -321,16 +347,19 @@ body{
     justify-content:flex-end;
     height:100%;
   }
-  .hero::before{left:42%;top:auto;bottom:4%;width:min(620px,190%)}
-
-  .hero-head{order:1;margin-bottom:26px}
+  /* o brilho fica no centro do corpo visível */
+  .hero::before{left:calc(var(--photo-col) / 2);top:auto;bottom:4%;width:min(620px,190%)}
 
   .hero-photo{
-    order:2;
     width:var(--photo-w);
     max-width:none;   /* sem isso a figure encolhe para caber na coluna */
     overflow:hidden;  /* a imagem nunca vaza para fora da área da foto */
-    transform:translate(var(--photo-x),var(--photo-y));
+    /* deslocamento por left/top, e não por transform: a animação de entrada
+       (.reveal.is-in{transform:none}) apagaria um transform daqui.
+       -21,8% desconta a faixa transparente da esquerda do PNG, para o corpo
+       encostar na borda da coluna em vez de ficar recuado. */
+    left:calc(var(--photo-x) - var(--photo-w) * .218);
+    top:var(--photo-y);
   }
   .hero-photo.is-missing{border-radius:var(--radius);min-height:360px}
 
@@ -343,7 +372,7 @@ body{
 }
 
 @media (min-width:1200px){
-  :root{--pad-x:40px;--photo-w:500px}
+  :root{--pad-x:40px;--photo-w:500px;--links-w:460px}
   .layout{gap:56px}
   .hero-name{font-size:2.6rem}
   .hero-tagline{font-size:1.35rem}
@@ -379,33 +408,36 @@ body{
 
 <body>
 <main class="wrap">
+
+  <!-- Cabeçalho: bloco próprio, centralizado na largura toda da tela.
+       No celular ele aparece DEPOIS do avatar (a ordem é definida no CSS). -->
+  <header class="hero-head">
+    <!-- EDITÁVEL · NOME -->
+    <h1 class="hero-name reveal">Paula Ferreira Confeitaria</h1>
+
+    <!-- EDITÁVEL · @ E LINK DO INSTAGRAM -->
+    <a class="hero-handle reveal"
+       href="https://instagram.com/paulaferreiraconfeitariaa"
+       target="_blank" rel="noopener">@paulaferreiraconfeitariaa</a>
+
+    <hr class="hero-rule reveal" aria-hidden="true">
+
+    <!-- EDITÁVEL · FRASE DE POSICIONAMENTO -->
+    <p class="hero-tagline reveal">Doces, salgados e <em>o que uso no dia a dia</em> — tudo em um lugar só.</p>
+  </header>
+
   <div class="layout">
 
     <section class="hero">
 
       <!-- EDITÁVEL · FOTO — troque paula.png (PNG com fundo transparente, retrato).
-           Ao trocar a foto: recalcule o fator 0.74 de --photo-col e reajuste
-           as variáveis --avatar-* do enquadramento no mobile. -->
+           Ao trocar a foto: recalcule o fator 0.555 de --photo-col e o .218 do
+           deslocamento, e reajuste as variáveis --avatar-* do celular. -->
       <figure class="hero-photo reveal">
         <img src="assets/paula.png"
              alt="Paula Ferreira, confeiteira, sentada em um banquinho"
              onerror="this.style.display='none';this.parentNode.classList.add('is-missing')">
       </figure>
-
-      <header class="hero-head">
-        <!-- EDITÁVEL · NOME -->
-        <h1 class="hero-name reveal">Paula Ferreira Confeitaria</h1>
-
-        <!-- EDITÁVEL · @ E LINK DO INSTAGRAM -->
-        <a class="hero-handle reveal"
-           href="https://instagram.com/paulaferreiraconfeitariaa"
-           target="_blank" rel="noopener">@paulaferreiraconfeitariaa</a>
-
-        <hr class="hero-rule reveal" aria-hidden="true">
-
-        <!-- EDITÁVEL · FRASE DE POSICIONAMENTO -->
-        <p class="hero-tagline reveal">Doces, salgados e <em>o que uso no dia a dia</em> — tudo em um lugar só.</p>
-      </header>
 
     </section>
 
@@ -535,6 +567,27 @@ body{
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
 
   for (var i = 0; i < items.length; i++) io.observe(items[i]);
+})();
+
+// Ícone da aba conforme o modo claro/escuro do navegador.
+// Os <link rel="icon" media="..."> já resolvem isso sozinhos no Chrome, no Edge
+// e no Firefox; este trecho cobre os navegadores que ignoram o media (Safari) e
+// troca o ícone na hora se a pessoa mudar de modo com a página aberta.
+(function () {
+  if (!window.matchMedia) return;
+
+  var dark = window.matchMedia('(prefers-color-scheme: dark)');
+  var icons = document.querySelectorAll('link[rel="icon"]');
+
+  function applyIcon() {
+    // EDITÁVEL · ÍCONES CLARO/ESCURO
+    var href = dark.matches ? 'assets/icone-white.png' : 'assets/icone.png';
+    for (var i = 0; i < icons.length; i++) icons[i].href = href;
+  }
+
+  applyIcon();
+  if (dark.addEventListener) dark.addEventListener('change', applyIcon);
+  else if (dark.addListener) dark.addListener(applyIcon);
 })();
 </script>
 </body>

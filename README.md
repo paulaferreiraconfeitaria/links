@@ -11,18 +11,27 @@ instalar nada. Para ver como fica no celular: `F12` → ícone de celular (Ctrl+
 
 ## Arquivos da pasta
 
-| Arquivo | O que é | Obrigatório |
-|---|---|---|
-| `index.html` | A página inteira (HTML + CSS + JS) | sim |
-| `paula.png` | Foto da criadora, PNG com fundo transparente, 1066×1600 | recomendado |
-| `card-delivery.jpg` | Imagem 1:1 do card de delivery | recomendado |
-| `card-embalagens.jpg` | Imagem 1:1 do card de embalagens | recomendado |
-| `card-ebook.jpg` | Imagem 1:1 do card do e-book | recomendado |
-| `card-panfletos.jpg` | Imagem 1:1 do card de panfletos | recomendado |
-| `icone.png` | Ícone da aba do navegador (favicon), quadrado | recomendado |
+| Arquivo | O que é |
+|---|---|
+| `index.html` | A página inteira (HTML + CSS + JS) |
+| `assets/paula.png` | Foto da criadora, PNG com fundo transparente, 1066×1358 |
+| `assets/card-delivery.jpeg` | Imagem 1:1 do card de delivery |
+| `assets/card-embalagens.jpeg` | Imagem 1:1 do card de embalagens |
+| `assets/card-ebook.jpeg` | Imagem 1:1 do card do e-book |
+| `assets/card-panfletos.png` | Imagem 1:1 do card de panfletos |
+| `assets/icone.png` | Ícone da aba — navegador no modo **claro** |
+| `assets/icone-white.png` | Ícone da aba — navegador no modo **escuro** |
 
 Se alguma imagem faltar, **a página não quebra**: a foto some e aparece um bloco
 discreto no lugar, e o card mostra um quadradinho creme com um círculo fininho.
+
+## Ordem dos blocos
+
+No código, o cabeçalho (`<header class="hero-head">`) vem **antes** da foto e dos
+cards — é um bloco independente, para poder ficar centralizado na tela inteira no
+computador. No celular, o CSS inverte a ordem visual para **avatar → nome → cards**
+(regras `order` dentro do bloco `@media (max-width:767px)`). Se um dia você mudar a
+ordem no HTML, confira as duas telas: o que manda no celular são essas regras `order`.
 
 ## Como editar
 
@@ -39,7 +48,15 @@ Abra o `index.html` em qualquer editor de texto (Bloco de Notas serve) e procure
 - **TÍTULO DO CARD 1 a 4**
 - **DESCRIÇÃO DO CARD 1 a 4**
 - **IMAGEM DO CARD 1 a 4**
-- **ÍCONE DA PÁGINA** e **OPEN GRAPH**
+- **ÍCONE DA PÁGINA**, **ÍCONES CLARO/ESCURO** e **OPEN GRAPH**
+
+### Ícone da aba (claro e escuro)
+
+São dois arquivos: `assets/icone.png` aparece quando o navegador está no modo claro e
+`assets/icone-white.png` quando está no modo escuro. A troca acontece sozinha, e muda
+na hora se a pessoa virar o modo com a página aberta. Para trocar os arquivos, mantenha
+os mesmos nomes — ou, se usar outros nomes, atualize os dois `<link rel="icon">` no
+topo do arquivo **e** o trecho marcado `EDITÁVEL · ÍCONES CLARO/ESCURO`, lá no fim.
 
 ### Trocar um link
 
@@ -54,8 +71,8 @@ nova sem devolver acesso à sua página.
 
 ### Trocar uma imagem de card
 
-Salve a nova imagem **quadrada (1:1)** na mesma pasta com o mesmo nome do arquivo
-antigo (ex.: `card-ebook.jpg`) e pronto. Se quiser usar outro nome, troque também o
+Salve a nova imagem **quadrada (1:1)** na pasta `assets` com o mesmo nome do arquivo
+antigo (ex.: `card-ebook.jpeg`) e pronto. Se quiser usar outro nome, troque também o
 `src="..."` do card correspondente.
 
 ### Trocar um texto
@@ -110,22 +127,48 @@ nada** — se você recarregar a página sem editar o arquivo, volta tudo ao que
 
 ## Se trocar a foto `paula.png`
 
-A página usa uma medida específica da foto atual: **a silhueta ocupa 77,3% da largura
-da imagem** e o resto da direita é transparente. Por isso a coluna reservada para a
-foto no computador é menor que a foto:
+A página usa duas medidas tiradas do canal alfa da foto atual: **o corpo começa em
+21,8% e termina em 77,3% da largura da imagem** — ou seja, sobra faixa transparente
+dos dois lados e o corpo ocupa 55,5% do arquivo. É disso que saem os três valores:
 
 ```css
---photo-col:calc(var(--photo-w) * 0.74);
+--photo-col:calc(var(--photo-w) * 0.555);  /* a coluna reserva só o corpo visível */
+--head-w:calc(var(--photo-w) * 0.74);      /* largura do texto do cabeçalho */
+/* e, na regra .hero-photo: left:calc(var(--photo-x) - var(--photo-w) * .218) */
 ```
 
-É isso que faz os cards chegarem perto da silhueta sem cobrir o corpo. **Se a nova
-foto tiver outro enquadramento, esse `0.74` precisa ser recalculado** (mais ou menos:
-porcentagem da largura ocupada pela silhueta, menos uns 3 pontos de folga). Reajuste
-também as variáveis `--avatar-*`.
+Juntos, eles fazem o corpo encostar na borda da coluna (em vez de ficar recuado), o
+texto do cabeçalho ficar centralizado exatamente em cima do corpo, e os cards
+chegarem perto da silhueta sem cobrir ninguém.
+
+**Se a nova foto tiver outro enquadramento, os três precisam ser recalculados.** Para
+medir sem instalar nada: abra a página, `F12` → Console, e cole:
+
+```js
+const i=new Image();i.src='assets/paula.png';await i.decode();
+const c=document.createElement('canvas');c.width=i.naturalWidth;c.height=i.naturalHeight;
+const x=c.getContext('2d');x.drawImage(i,0,0);
+const d=x.getImageData(0,0,c.width,c.height).data;let a=c.width,b=0;
+for(let y=0;y<c.height;y+=2)for(let p=0;p<c.width;p+=2)if(d[(y*c.width+p)*4+3]>16){if(p<a)a=p;if(p>b)b=p}
+console.log('esquerda',(a/c.width*100).toFixed(1)+'%','direita',(b/c.width*100).toFixed(1)+'%')
+```
+
+O primeiro número entra no `.218` (deslocamento), e a diferença entre os dois vira o
+`0.555` da coluna. Reajuste também as variáveis `--avatar-*` do celular.
 
 O tamanho da foto no computador é controlado por `--photo-w` (300px no celular, 340px
 a partir de 768px e 500px a partir de 1200px). Em telas de altura pequena, 500px faz a
 página rolar um pouco — baixe para 420px ou 450px se preferir que tudo caiba sem rolar.
+
+## Largura dos cards no computador (`--links-w`)
+
+No computador, o cabeçalho (nome, @ e frase) é uma **faixa própria, centralizada na
+largura inteira da tela**, e abaixo dele a foto e os cards formam um bloco só, também
+centralizado, com a mesma margem dos dois lados. A largura
+máxima da coluna de cards é `--links-w`: 440px a partir de 768px e 460px a partir de
+1200px. Aumente para cards mais largos, diminua para cards mais estreitos —
+a foto não muda de tamanho junto, os dois valores são independentes. Em telas menores
+a coluna encolhe sozinha para caber, sem nunca passar desse máximo.
 
 ## Como publicar
 
