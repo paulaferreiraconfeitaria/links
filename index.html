@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Paula Ferreira Confeitaria · Links</title>
+<meta name="description" content="Delivery, embalagens que eu uso, e-book da Coxinha Perfeita e mais.">
+
+<!-- EDITÁVEL · ÍCONE DA PÁGINA — troque o arquivo icone.png (quadrado) -->
+<link rel="icon" href="assets/icone.png">
+<link rel="apple-touch-icon" href="icone.png">
+<meta name="theme-color" content="#4A1420">
+
+<!-- EDITÁVEL · OPEN GRAPH — troque TROCAR-PELA-URL-FINAL pela URL publicada -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Paula Ferreira Confeitaria · Links">
+<meta property="og:description" content="Delivery, embalagens que eu uso, e-book da Coxinha Perfeita e mais.">
+<meta property="og:url" content="https://TROCAR-PELA-URL-FINAL">
+<meta property="og:image" content="https://TROCAR-PELA-URL-FINAL/icone.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TOKENS — identidade visual compartilhada com o media kit
+   ============================================================ */
+:root{
+  --wine:#4A1420;          /* vinho principal — fundo das faixas escuras */
+  --wine-2:#5C1B29;        /* vinho claro (gradientes) */
+  --wine-deep:#2F0C15;     /* vinho profundo */
+  --cream:#F4EDE3;         /* creme — fundo claro principal */
+  --card:#FBF7F1;          /* creme dos cards */
+  --gold:#D97A34;          /* dourado — sobre vinho e em botões */
+  --gold-soft:#E9A265;     /* dourado claro (gradientes, hover) */
+  --gold-deep:#C4661F;     /* dourado de números/títulos grandes sobre creme */
+  --gold-ink:#A8541D;      /* dourado de textos pequenos sobre creme */
+  --ink:#3A2018;           /* texto sobre creme */
+  --ink-70:rgba(58,32,24,.72);
+  --ink-45:rgba(58,32,24,.48);
+  --line:rgba(74,20,32,.12);          /* bordas sobre creme */
+  --line-light:rgba(244,237,227,.16); /* bordas sobre vinho */
+  --radius:20px;
+  --radius-sm:14px;
+  --shadow:0 1px 2px rgba(74,20,32,.05), 0 14px 34px -16px rgba(74,20,32,.22);
+  --pad-x:20px;            /* 32px a partir de 768px, 40px a partir de 1200px */
+  --serif:"Playfair Display", Georgia, "Times New Roman", serif;
+  --sans:"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* --- foto: valores medidos no canal alfa do paula.png (1066x1600) --- */
+  --photo-w:300px;                          /* 340px em 768px+, 500px em 1200px+ */
+  --photo-col:calc(var(--photo-w) * 0.74);  /* coluna reservada — MENOR de propósito:
+                                               23% da direita da imagem é transparente */
+  --photo-x:0px;
+  --photo-y:0px;
+
+  /* --- enquadramento do avatar redondo do mobile --- */
+  --avatar-size:172px;
+  --avatar-zoom:111%;
+  --avatar-x:-3%;
+  --avatar-y:4%;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow-x:hidden;
+  background:linear-gradient(165deg,var(--wine) 0%,var(--wine-deep) 100%);
+  color:var(--cream);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{
+  width:100%;
+  max-width:1120px;
+  margin:0 auto;
+  padding:clamp(36px,7vh,72px) var(--pad-x);
+}
+
+/* ============================================================
+   CABEÇALHO
+   ============================================================ */
+.hero{position:relative}
+
+/* brilho dourado decorativo atrás da foto */
+.hero::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  pointer-events:none;
+  left:50%;
+  top:-8%;
+  transform:translateX(-50%);
+  width:min(540px,150%);
+  aspect-ratio:1/1;
+  background:radial-gradient(circle,rgba(217,122,52,.30) 0%,rgba(217,122,52,0) 70%);
+}
+.hero-head,.hero-photo{position:relative;z-index:1}
+
+.hero-name{
+  margin:0;
+  font-family:var(--serif);
+  font-weight:600;
+  line-height:1.14;
+  letter-spacing:-.01em;
+  font-size:clamp(1.8rem,7vw,2.25rem);
+  color:var(--cream);
+}
+
+.hero-handle{
+  display:inline-block;
+  margin-top:12px;
+  padding:6px 16px;
+  border:1px solid rgba(217,122,52,.45);
+  border-radius:999px;
+  color:var(--gold);
+  font-weight:600;
+  font-size:.875rem;
+  text-decoration:none;
+  transition:border-color .25s ease,background-color .25s ease;
+}
+.hero-handle:hover{border-color:rgba(217,122,52,.85);background:rgba(217,122,52,.10)}
+.hero-handle:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.hero-rule{
+  width:44px;
+  height:1px;
+  margin:18px 0;
+  border:0;
+  background:rgba(217,122,52,.60);
+}
+
+.hero-tagline{
+  margin:0;
+  font-family:var(--serif);
+  font-weight:500;
+  line-height:1.35;
+  letter-spacing:-.01em;
+  font-size:clamp(1.05rem,4.4vw,1.25rem);
+  color:var(--cream);
+}
+.hero-tagline em{font-style:italic;color:var(--gold)}
+
+/* foto */
+.hero-photo{margin:0}
+.hero-photo img{display:block;width:100%;height:auto}
+.hero-photo.is-missing{
+  background:linear-gradient(150deg,#6B2130,#3A0F19);
+  border:1px solid var(--line-light);
+}
+
+/* ============================================================
+   CARDS DE LINK
+   ============================================================ */
+.links{position:relative;z-index:2;margin-top:34px}
+
+.card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:12px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  color:var(--ink);
+  text-decoration:none;
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.card + .card{margin-top:14px}
+.card:hover{
+  transform:translateY(-2px);
+  border-color:rgba(217,122,52,.55);
+  box-shadow:0 2px 4px rgba(74,20,32,.06), 0 22px 44px -18px rgba(74,20,32,.34);
+}
+.card:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:3px;
+  transform:translateY(-2px);
+  border-color:rgba(217,122,52,.55);
+}
+
+.card-thumb{
+  position:relative;
+  flex:0 0 auto;
+  width:72px;                 /* 88px no desktop */
+  aspect-ratio:1/1;
+  border-radius:var(--radius-sm);
+  overflow:hidden;
+}
+/* placeholder discreto — fica visível se a imagem do card não carregar */
+.card-thumb::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(150deg,#F1E5D7,#E4CEB6);
+}
+.card-thumb::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:18px;
+  height:18px;
+  margin:-9px 0 0 -9px;
+  border-radius:50%;
+  border:1px solid rgba(168,84,29,.45);
+}
+.card-thumb img{
+  position:relative;
+  z-index:1;
+  display:block;
+  width:100%;
+  height:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+}
+
+.card-body{flex:1 1 auto;min-width:0}
+.card-title{
+  margin:0;
+  font-family:var(--serif);
+  font-weight:600;
+  line-height:1.2;
+  letter-spacing:-.01em;
+  font-size:1.05rem;          /* 1.15rem no desktop */
+  color:var(--ink);
+}
+.card-desc{
+  display:block;
+  margin-top:4px;
+  font-size:.85rem;
+  line-height:1.45;
+  color:var(--ink-70);
+}
+
+.card-arrow{
+  flex:0 0 auto;
+  margin-right:6px;
+  color:var(--gold-ink);
+  opacity:.85;
+  transition:transform .25s ease;
+}
+.card:hover .card-arrow{transform:translateX(3px)}
+
+.foot{
+  margin-top:28px;
+  font-size:.6875rem;
+  font-weight:700;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--gold);
+  opacity:.75;
+}
+
+/* ============================================================
+   MOBILE (até 767px) — coluna única, foto vira avatar redondo
+   ============================================================ */
+@media (max-width:767px){
+  .hero{text-align:center}
+
+  .hero-photo{
+    position:relative;
+    width:var(--avatar-size);
+    height:var(--avatar-size);
+    margin:0 auto 22px;
+    border-radius:50%;
+    overflow:hidden;
+    background:linear-gradient(150deg,#6B2130,#3A0F19);
+    border:1px solid rgba(244,237,227,.28);
+    box-shadow:0 0 0 6px rgba(217,122,52,.16), 0 0 0 7px rgba(217,122,52,.55),
+               0 18px 40px -18px rgba(0,0,0,.6);
+  }
+  .hero-photo img{
+    position:absolute;
+    height:auto;
+    max-width:none;
+    width:var(--avatar-zoom);
+    left:var(--avatar-x);
+    top:var(--avatar-y);
+  }
+
+  .hero-rule{margin-left:auto;margin-right:auto}
+
+  /* rede de segurança: descrição muito longa não estica o card sem limite */
+  .card-desc{
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+}
+
+/* ============================================================
+   TABLET / DESKTOP (768px+) — duas colunas
+   ============================================================ */
+@media (min-width:768px){
+  :root{--pad-x:32px;--photo-w:340px}
+
+  .layout{
+    display:grid;
+    grid-template-columns:var(--photo-col) minmax(0,1fr);
+    gap:44px;
+    align-items:end;
+  }
+
+  .hero{
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    height:100%;
+  }
+  .hero::before{left:42%;top:auto;bottom:4%;width:min(620px,190%)}
+
+  .hero-head{order:1;margin-bottom:26px}
+
+  .hero-photo{
+    order:2;
+    width:var(--photo-w);
+    max-width:none;   /* sem isso a figure encolhe para caber na coluna */
+    overflow:hidden;  /* a imagem nunca vaza para fora da área da foto */
+    transform:translate(var(--photo-x),var(--photo-y));
+  }
+  .hero-photo.is-missing{border-radius:var(--radius);min-height:360px}
+
+  .links{margin-top:0}
+  .card{gap:18px;padding:14px}
+  .card + .card{margin-top:16px}
+  .card-thumb{width:88px}
+  .card-title{font-size:1.15rem}
+  .card-desc{font-size:.875rem}
+}
+
+@media (min-width:1200px){
+  :root{--pad-x:40px;--photo-w:500px}
+  .layout{gap:56px}
+  .hero-name{font-size:2.6rem}
+  .hero-tagline{font-size:1.35rem}
+}
+
+/* ============================================================
+   ANIMAÇÃO DE ENTRADA
+   ============================================================ */
+.reveal{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .5s ease,transform .5s ease;
+}
+.reveal.is-in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .card,.card-arrow,.hero-handle{transition:none}
+  .card:hover{transform:none}
+  .card:hover .card-arrow{transform:none}
+}
+
+@media print{
+  .reveal{opacity:1 !important;transform:none !important}
+  body{background:#fff;color:#000}
+  .card{box-shadow:none}
+}
+</style>
+
+<!-- sem JavaScript não há animação de entrada: mostra tudo -->
+<noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</head>
+
+<body>
+<main class="wrap">
+  <div class="layout">
+
+    <section class="hero">
+
+      <!-- EDITÁVEL · FOTO — troque paula.png (PNG com fundo transparente, retrato).
+           Ao trocar a foto: recalcule o fator 0.74 de --photo-col e reajuste
+           as variáveis --avatar-* do enquadramento no mobile. -->
+      <figure class="hero-photo reveal">
+        <img src="assets/paula.png"
+             alt="Paula Ferreira, confeiteira, sentada em um banquinho"
+             onerror="this.style.display='none';this.parentNode.classList.add('is-missing')">
+      </figure>
+
+      <header class="hero-head">
+        <!-- EDITÁVEL · NOME -->
+        <h1 class="hero-name reveal">Paula Ferreira Confeitaria</h1>
+
+        <!-- EDITÁVEL · @ E LINK DO INSTAGRAM -->
+        <a class="hero-handle reveal"
+           href="https://instagram.com/paulaferreiraconfeitariaa"
+           target="_blank" rel="noopener">@paulaferreiraconfeitariaa</a>
+
+        <hr class="hero-rule reveal" aria-hidden="true">
+
+        <!-- EDITÁVEL · FRASE DE POSICIONAMENTO -->
+        <p class="hero-tagline reveal">Doces, salgados e <em>o que uso no dia a dia</em> — tudo em um lugar só.</p>
+      </header>
+
+    </section>
+
+    <nav class="links" aria-label="Meus links">
+
+      <!-- EDITÁVEL · LINK 1 — delivery -->
+      <a class="card reveal"
+         href="https://instadelivery.com.br/paulaferreiraconfeitaria"
+         target="_blank" rel="noopener">
+        <span class="card-thumb">
+          <!-- EDITÁVEL · IMAGEM DO CARD 1 (1:1) -->
+          <img src="assets/card-delivery.jpeg" alt="" aria-hidden="true" loading="lazy"
+               onerror="this.remove()">
+        </span>
+        <span class="card-body">
+          <!-- EDITÁVEL · TÍTULO DO CARD 1 -->
+          <h2 class="card-title">Meu delivery&nbsp;🧁</h2>
+          <!-- EDITÁVEL · DESCRIÇÃO DO CARD 1 -->
+          <span class="card-desc">Doces e salgados, faça seu pedido direto pelo site.</span>
+        </span>
+        <svg class="card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+
+      <!-- EDITÁVEL · LINK 2 — embalagens e indicações -->
+      <a class="card reveal"
+         href="https://collshp.com/paulaferreiraconfeitaria?view=storefront"
+         target="_blank" rel="noopener">
+        <span class="card-thumb">
+          <!-- EDITÁVEL · IMAGEM DO CARD 2 (1:1) -->
+          <img src="assets/card-embalagens.jpeg" alt="" aria-hidden="true" loading="lazy"
+               onerror="this.remove()">
+        </span>
+        <span class="card-body">
+          <!-- EDITÁVEL · TÍTULO DO CARD 2 -->
+          <h2 class="card-title">Embalagens e indicações&nbsp;⭐️</h2>
+          <!-- EDITÁVEL · DESCRIÇÃO DO CARD 2 -->
+          <span class="card-desc">As embalagens e utensílios que eu uso e recomendo.</span>
+        </span>
+        <svg class="card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+
+      <!-- EDITÁVEL · LINK 3 — e-book -->
+      <a class="card reveal"
+         href="https://coxinhaperfeita.paulaferreirasouzasena.workers.dev"
+         target="_blank" rel="noopener">
+        <span class="card-thumb">
+          <!-- EDITÁVEL · IMAGEM DO CARD 3 (1:1) -->
+          <img src="assets/card-ebook.jpeg" alt="" aria-hidden="true" loading="lazy"
+               onerror="this.remove()">
+        </span>
+        <span class="card-body">
+          <!-- EDITÁVEL · TÍTULO DO CARD 3 -->
+          <h2 class="card-title">E-book Coxinha Perfeita&nbsp;📚</h2>
+          <!-- EDITÁVEL · DESCRIÇÃO DO CARD 3 -->
+          <span class="card-desc">O passo a passo da minha receita e estratégias de vendas.</span>
+        </span>
+        <svg class="card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+
+      <!-- EDITÁVEL · LINK 4 — pack de panfletos -->
+      <a class="card reveal"
+         href="https://pay.hotmart.com/Y107629493P"
+         target="_blank" rel="noopener">
+        <span class="card-thumb">
+          <!-- EDITÁVEL · IMAGEM DO CARD 4 (1:1) -->
+          <img src="assets/card-panfletos.png" alt="" aria-hidden="true" loading="lazy"
+               onerror="this.remove()">
+        </span>
+        <span class="card-body">
+          <!-- EDITÁVEL · TÍTULO DO CARD 4 -->
+          <h2 class="card-title">Pack de Panfletos&nbsp;📔</h2>
+          <!-- EDITÁVEL · DESCRIÇÃO DO CARD 4 -->
+          <span class="card-desc">Artes prontas e editáveis para divulgar e vender mais.</span>
+        </span>
+        <svg class="card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </a>
+
+      <!-- EDITÁVEL · RODAPÉ -->
+      <p class="foot reveal">Palmas · TO</p>
+
+    </nav>
+
+  </div>
+</main>
+
+<script>
+(function () {
+  var items = document.querySelectorAll('.reveal');
+
+  function showAll() {
+    for (var i = 0; i < items.length; i++) items[i].classList.add('is-in');
+  }
+
+  // Impressão: garante tudo visível mesmo sem rolagem prévia.
+  window.addEventListener('beforeprint', showAll);
+  if (window.matchMedia) {
+    var printMq = window.matchMedia('print');
+    if (printMq.addEventListener) {
+      printMq.addEventListener('change', function (e) { if (e.matches) showAll(); });
+    }
+  }
+
+  // Fallback: navegador sem IntersectionObserver mostra tudo de uma vez.
+  if (!('IntersectionObserver' in window)) { showAll(); return; }
+
+  // Respeita prefers-reduced-motion: sem animação, só mostra.
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    showAll(); return;
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry, i) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      el.style.transitionDelay = (Math.min(i, 5) * 60) + 'ms';
+      el.classList.add('is-in');
+      io.unobserve(el);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+  for (var i = 0; i < items.length; i++) io.observe(items[i]);
+})();
+</script>
+</body>
+</html>
