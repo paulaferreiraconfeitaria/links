@@ -17,8 +17,10 @@ instalar nada. Para ver como fica no celular: `F12` → ícone de celular (Ctrl+
 | `assets/paula.png` | Foto da criadora, PNG com fundo transparente, 1066×1358 |
 | `assets/card-delivery.jpeg` | Imagem 1:1 do card de delivery |
 | `assets/card-embalagens.jpeg` | Imagem 1:1 do card de embalagens |
-| `assets/card-ebook.jpeg` | Imagem 1:1 do card do e-book |
+| `assets/card-gestly.jpg` | Imagem 1:1 do card do Gestly, aplicativo de gestão e precificação |
+| `assets/card-afiliadas.png` | Imagem 1:1 do card sobre afiliação e renda com indicações |
 | `assets/card-panfletos.png` | Imagem 1:1 do card de panfletos |
+| `assets/card-ifood.png` | Imagem 1:1 do card do iFood |
 | `assets/icone.png` | Ícone da aba — navegador no modo **claro** |
 | `assets/icone-white.png` | Ícone da aba — navegador no modo **escuro** |
 
@@ -44,10 +46,10 @@ Abra o `index.html` em qualquer editor de texto (Bloco de Notas serve) e procure
 - **@ E LINK DO INSTAGRAM** — o `@` que aparece na pílula e para onde ele leva
 - **FRASE DE POSICIONAMENTO** — a frase em serifada; o que está entre `<em>` e `</em>`
   aparece em dourado
-- **LINK 1 a 4** — o endereço (`href`) de cada card
-- **TÍTULO DO CARD 1 a 4**
-- **DESCRIÇÃO DO CARD 1 a 4**
-- **IMAGEM DO CARD 1 a 4**
+- **LINK 1 a 6** — o endereço (`href`) de cada card
+- **TÍTULO DO CARD 1 a 6**
+- **DESCRIÇÃO DO CARD 1 a 6**
+- **IMAGEM DO CARD 1 a 6**
 - **ÍCONE DA PÁGINA**, **ÍCONES CLARO/ESCURO** e **OPEN GRAPH**
 
 ### Ícone da aba (claro e escuro)
@@ -72,7 +74,7 @@ nova sem devolver acesso à sua página.
 ### Trocar uma imagem de card
 
 Salve a nova imagem **quadrada (1:1)** na pasta `assets` com o mesmo nome do arquivo
-antigo (ex.: `card-ebook.jpeg`) e pronto. Se quiser usar outro nome, troque também o
+antigo (ex.: `card-gestly.jpg`) e pronto. Se quiser usar outro nome, troque também o
 `src="..."` do card correspondente.
 
 ### Trocar um texto
